@@ -7,9 +7,7 @@ const env = () => {
         data = fs.readFileSync(dotenvPath, 'utf8');
     }
     catch (err) {
-        process.env.IP = '127.0.0.1';
-        process.env.PORT = 3000
-        return 'Could\'t load .env file. Using default IP and PORT';
+        return 'Could\'t load .env file.';
     }
     importEnv(data);
     return 'Found .env file. OK';
