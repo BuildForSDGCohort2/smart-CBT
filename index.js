@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(documentation));
 
-app.listen(3000, () => {
+app.listen(PORT, IP, () => {
     console.log(env);
     console.log(`API running on http://${IP}:${PORT}`);
 }); 
