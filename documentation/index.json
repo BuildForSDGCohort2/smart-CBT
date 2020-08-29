@@ -654,6 +654,7 @@
         }
       ],
       "get": {
+        "description": "Lists all the exams that have been created.",
         "tags": [
           "Exams"
         ],
@@ -688,6 +689,7 @@
         }
       },
       "post": {
+        "description": "Creates a new exam.",
         "tags": [
           "Exams"
         ],
@@ -1908,18 +1910,6 @@
               "objective",
               "theory"
             ]
-          },
-          "questions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/question"
-            }
-          },
-          "batches": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/batch"
-            }
           }
         }
       },
