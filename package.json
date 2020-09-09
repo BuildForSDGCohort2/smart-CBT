@@ -24,6 +24,7 @@
   "homepage": "https://github.com/BuildForSDGCohort2/smart-CBT-backend#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "my-sql": "^1.2.15",
     "swagger-ui-express": "^4.1.4"
   }
 }
