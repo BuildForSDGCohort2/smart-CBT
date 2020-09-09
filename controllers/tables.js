@@ -7,7 +7,7 @@ module.exports = () => {
             id INT NOT NULL AUTO_INCREMENT,
             date DATETIME DEFAULT CURRENT_TIMESTAMP(),
             tutor VARCHAR(255),
-            courseTitle VARCHAR(255) NOT NULL,
+            courseTitle VARCHAR(255) NOT NULL UNIQUE,
             creditLoad INT,
             courseCode VARCHAR(255),
             examDuration INT,
@@ -18,5 +18,6 @@ module.exports = () => {
             if(err) console.log(err);
             else console.log('Exams table created')
         });
+        connection.release();
     });
 }

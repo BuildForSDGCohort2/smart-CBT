@@ -26,5 +26,8 @@
     "express": "^4.17.1",
     "my-sql": "^1.2.15",
     "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
