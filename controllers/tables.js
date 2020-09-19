@@ -18,6 +18,20 @@ module.exports = () => {
             if(err) console.log(err);
             else console.log('Exams table created')
         });
+
+        connection.query(`
+            CREATE TABLE IF NOT EXISTS questions(
+                id INT NOT NULL AUTO_INCREMENT,
+                question VARCHAR(1000),
+                options JSON,
+                answers JSON,
+                examId INT NOT NULL,
+                PRIMARY KEY(id),
+                FOREIGN KEY(examId) REFERENCES exams(id)
+            )`, (err, result) => {
+            if(err) console.log(err);
+            else console.log('Questions table created')
+        });
         connection.release();
     });
 }
