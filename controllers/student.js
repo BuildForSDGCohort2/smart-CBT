@@ -73,11 +73,6 @@ module.exports.readStudent = (req, res) => {
 };
 
 module.exports.createStudent = (req, res) => {
-    let chars = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
-    let password = '';
-    for(let i = 0; i < 6; i++) {
-        password += chars[Math.floor(Math.random() * (chars.length - 1))];
-    }
     let student = req.body;
     let examId   = Number(req.params.examId);
     if(!examId) reject({status: 400, json:{message: 'Malformed EXAMID. EXAMID should be integer.'}});
@@ -87,7 +82,6 @@ module.exports.createStudent = (req, res) => {
             connection.release();
             return reject({status: 500, json:{message: 'Something went wrong.'}});
         }
-        student.password = password;
         createStudent(connection, student, examId)
         .then(result => {
             res.json(result);
@@ -203,6 +197,12 @@ module.exports.createStudents = (req, res) => {
 
 function createStudent(connection, student, examId) {
     student.examId = examId;
+    let chars = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
+    let password = '';
+    for(let i = 0; i < 6; i++) {
+        password += chars[Math.floor(Math.random() * (chars.length - 1))];
+    }
+    student.password = password;
     return new Promise((resolve, reject) => {
         connection.query(`
             INSERT INTO students SET ?
