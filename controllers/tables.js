@@ -32,6 +32,37 @@ module.exports = () => {
             if(err) console.log(err);
             else console.log('Questions table created')
         });
+
+        connection.query(`
+            CREATE TABLE IF NOT EXISTS batches(
+                id INT NOT NULL AUTO_INCREMENT,
+                name VARCHAR(255),
+                examId INT,
+                active BOOLEAN,
+                PRIMARY KEY(id),
+                FOREIGN KEY(examId) REFERENCES exams(id)
+            )`, (err, result) => {
+            if(err) console.log(err);
+            else console.log('Batches table created')
+        });
+
+        connection.query(`
+            CREATE TABLE IF NOT EXISTS students(
+                id INT NOT NULL AUTO_INCREMENT,
+                regNo VARCHAR(255) UNIQUE,
+                name VARCHAR(255) NOT NULL,
+                password VARCHAR(255),
+                department VARCHAR(255),
+                examId INT NOT NULL,
+                batchId INT,
+                hall VARCHAR(255),
+                PRIMARY KEY(id),
+                FOREIGN KEY(examId) REFERENCES exams(id),
+                FOREIGN KEY(batchId) REFERENCES batches(id)
+            )`, (err, result) => {
+            if(err) console.log(err);
+            else console.log('Students table created')
+        });
         connection.release();
     });
 }
