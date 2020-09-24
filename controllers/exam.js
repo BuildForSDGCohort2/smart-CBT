@@ -48,6 +48,12 @@ module.exports.readExam = (req, res) => {
 
 module.exports.createExam = (req, res) => {
     let exam = req.body;
+    try{
+        exam.examInstructions = JSON.stringify(exam.examInstructions);
+    } catch(err) {
+        console.log(err);
+        return res.status(400).json({message: 'Invalid structure for examInstructions.'});
+    }
     if(!exam.courseTitle || !exam.examType) {
         return res.status(400).json({message: 'Invalid request body, courseTitle and examType are required fields'});
     }
@@ -56,6 +62,9 @@ module.exports.createExam = (req, res) => {
     `, exam, (err, result, fields) => {
         if(err) {
             console.log(err);
+            if(err.code === 'ER_DUP_ENTRY') {
+                return res.status(400).json({message: 'Course with given course title already exists.'});
+            }
             return res.status(500).json({message: 'Something went wrong.'});
         }
         res.json({message: 'created exam ' + result.insertId});
