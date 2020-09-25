@@ -63,6 +63,20 @@ module.exports = () => {
             if(err) console.log(err);
             else console.log('Students table created')
         });
+
+        connection.query(`
+            CREATE TABLE IF NOT EXISTS lecturers(
+                id INT NOT NULL AUTO_INCREMENT,
+                name VARCHAR(255),
+                email VARCHAR(255) NOT NULL UNIQUE,
+                password VARCHAR(255) NOT NULL,
+                examId INT NOT NULL,
+                PRIMARY KEY(id),
+                FOREIGN KEY(examID) REFERENCES exams(id)
+            )`, (err, result) => {
+                if(err) console.log(err);
+                else console.log('Lecturers table created')
+            })
         connection.release();
     });
 }
