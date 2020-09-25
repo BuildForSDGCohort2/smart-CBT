@@ -164,6 +164,7 @@ module.exports.createStudents = (req, res) => {
     let examId   = Number(req.params.examId);
     if(!examId) return res.status(400).json({message: 'Malformed EXAMID. EXAMID should be integer.'});
     let students = req.body.students;
+    if(!students) return res.status(400).json({message: 'Student is undefined, check request body.'});
     pool.getConnection((err, connection) => {
         if( err ) {
             console.log(err);
@@ -197,6 +198,7 @@ module.exports.createStudents = (req, res) => {
 
 function createStudent(connection, student, examId) {
     student.examId = examId;
+    if(student.id) delete student.id;
     let chars = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
     let password = '';
     for(let i = 0; i < 6; i++) {
@@ -214,7 +216,7 @@ function createStudent(connection, student, examId) {
                 console.log(err);
                 return reject({status: 500, json:{message: 'Something went wrong.'}});
             }
-            return resolve({message: 'created student ' + result.insertId});
+            return resolve({message: 'created student ' + student.regNo});
         });
     });
 }
