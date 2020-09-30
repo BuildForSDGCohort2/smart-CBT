@@ -74,9 +74,23 @@ module.exports = () => {
                 PRIMARY KEY(id),
                 FOREIGN KEY(examID) REFERENCES exams(id)
             )`, (err, result) => {
-                if(err) console.log(err);
-                else console.log('Lecturers table created')
-            })
+            if(err) console.log(err);
+            else console.log('Lecturers table created')
+        })
+
+        connection.query(`
+            CREATE TABLE IF NOT EXISTS results(
+                id INT NOT NULL AUTO_INCREMENT,
+                regNo VARCHAR(255) UNIQUE,
+                examId INT NOT NULL,
+                score INT,
+                grade TINYTEXT,
+                PRIMARY KEY(id),
+                FOREIGN KEY(examID) REFERENCES exams(id)
+            )`, (err, result) => {
+            if(err) console.log(err);
+            else console.log('Results table created')
+        })
         connection.release();
     });
 }
