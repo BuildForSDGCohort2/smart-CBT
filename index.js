@@ -7,13 +7,24 @@ const questionRoutes= require('./routers/questions');
 const studentRoutes = require('./routers/students');
 const lecturerRoutes = require('./routers/lecturers');
 const resultRoutes   = require('./routers/results');
+const session        = require('express-session');
+const pool           = require('./controllers/db-pool');
+const MySQLStore     = require('express-mysql-session')(session);
+const sessionStore   = new MySQLStore({}, pool)
 
 const app = express(),
 PORT      = process.env.PORT, 
-IP        = process.env.IP;
+IP        = process.env.IP,
+SECRET    = process.env.SECRET;
 require('./controllers/tables')();
 
 app.use(express.json());
+app.use(session({
+    secret: SECRET,
+    resave: true,
+    saveUninitialized: true,
+    store: sessionStore
+}));
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect

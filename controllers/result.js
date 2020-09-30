@@ -114,6 +114,7 @@ module.exports.createResult = (req, res) => {
                             reqData.push(thisQuestion);
                         });
                         console.log(reqData);
+                        res.status(202).json({message: 'Request has been put in queue and will be processed soon.'});
                         //send request to ai
                         //recieve response
                         //store result
