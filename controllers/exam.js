@@ -1,7 +1,6 @@
 const pool = require('./db-pool');
 
 module.exports.readExams = (req, res) => {
-    
     pool.getConnection((err, connection) => {
         if( err ) {
             console.log(err);
@@ -32,7 +31,7 @@ module.exports.readExams = (req, res) => {
 
 module.exports.readExam = (req, res) => {
     let id = Number(req.params.id);
-    if(!id) res.status(400).json({message: 'Malformed ID. ID should be integer.'})
+    if(!id) return res.status(400).json({message: 'Malformed ID. ID should be integer.'})
     pool.query(`
         SELECT * FROM exams
         WHERE id = ?
@@ -74,7 +73,7 @@ module.exports.createExam = (req, res) => {
 module.exports.updateExam = (req, res) => {
     let update = req.body;
     let id = Number(req.params.id);
-    if(!id) res.status(400).json({message: 'Malformed ID. ID should be integer.'});
+    if(!id) return res.status(400).json({message: 'Malformed ID. ID should be integer.'});
     pool.query(`
         UPDATE exams SET ?
         WHERE id = ?
