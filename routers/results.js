@@ -7,7 +7,7 @@ router.get('/results', middleware.isAdminOrLecturer, (req, res) => {
     controller.readResults(req, res);
 });
 
-router.post('/results',  (req, res) => {
+router.post('/results', middleware.isStudent, (req, res) => {
     controller.createResult(req, res);
 });
 
