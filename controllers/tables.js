@@ -82,6 +82,8 @@ module.exports = () => {
             CREATE TABLE IF NOT EXISTS results(
                 id INT NOT NULL AUTO_INCREMENT,
                 regNo VARCHAR(255) UNIQUE,
+                name VARCHAR(255),
+                summary JSON,
                 examId INT NOT NULL,
                 score INT,
                 grade TINYTEXT,
