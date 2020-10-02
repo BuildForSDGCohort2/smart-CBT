@@ -91,6 +91,18 @@ module.exports = () => {
             if(err) console.log(err);
             else console.log('Results table created')
         })
+
+        connection.query(`
+            CREATE TABLE IF NOT EXISTS sessions(
+                id VARCHAR(255) UNIQUE,
+                userId VARCHAR(255),
+                examId INT,
+                privilege VARCHAR(255),
+                PRIMARY KEY(id)
+            )`, (err, result) => {
+            if(err) console.log(err);
+            else console.log('Sessions table created')
+        })
         connection.release();
     });
 }
