@@ -5,7 +5,7 @@ router           = Router(),
 controller       = require('../controllers/exam'),
 middleware       = require('../middleware');
 
-router.get('/', middleware.isLoggedIn, (req, res) => {
+router.get('/', (req, res) => {
     controller.readExams(req, res);
 });
 
